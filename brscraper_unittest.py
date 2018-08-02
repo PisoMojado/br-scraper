@@ -109,5 +109,16 @@ class BRScraperFunctions(unittest.TestCase):
                 self.assertTrue("Tm" in row)
                 self.assertTrue(row[""] == "Cal Ripken")
                 self.assertTrue(row["Tm"] == "BAL")
+    def test_splits(self):
+        resource = "players/split.fcgi?id=altuvjo01&t=b&year=2017"
+        data = self.scraper.parse_splits_tables(resource)
+        self.assertTrue("stad" in data)
+        self.assertTrue("Night" in data["stad"][0]["Split"])
+        self.assertTrue("G" in data["stad"][0])
+        self.assertEqual("110", data["stad"][0]["G"])
+        self.assertTrue("times" in data)
+        self.assertTrue("vs. SP" in data["times"][0]["Split"])
+        self.assertTrue("G" in data["times"][0])
+        self.assertEqual("151", data["times"][0]["G"])
 if __name__ == "__main__":
     unittest.main()
